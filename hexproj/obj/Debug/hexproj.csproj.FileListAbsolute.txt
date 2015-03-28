@@ -1,0 +1,9 @@
+c:\users\administrator\documents\visual studio 2013\Projects\hexproj\hexproj\bin\Debug\hexproj.exe.config
+C:\Users\Administrator\documents\visual studio 2013\Projects\hexproj\hexproj\bin\Debug\hexproj.exe
+C:\Users\Administrator\documents\visual studio 2013\Projects\hexproj\hexproj\bin\Debug\hexproj.pdb
+C:\Users\Administrator\documents\visual studio 2013\Projects\hexproj\hexproj\obj\Debug\hexproj.csprojResolveAssemblyReference.cache
+C:\Users\Administrator\documents\visual studio 2013\Projects\hexproj\hexproj\obj\Debug\hexproj.Form1.resources
+C:\Users\Administrator\documents\visual studio 2013\Projects\hexproj\hexproj\obj\Debug\hexproj.Properties.Resources.resources
+C:\Users\Administrator\documents\visual studio 2013\Projects\hexproj\hexproj\obj\Debug\hexproj.csproj.GenerateResource.Cache
+C:\Users\Administrator\documents\visual studio 2013\Projects\hexproj\hexproj\obj\Debug\hexproj.exe
+C:\Users\Administrator\documents\visual studio 2013\Projects\hexproj\hexproj\obj\Debug\hexproj.pdb
