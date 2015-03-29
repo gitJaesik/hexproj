@@ -28,7 +28,7 @@ namespace hexproj
         string upperFile = "";
         string downFile = "";
         string modifyFile = "";
-        string oneLine = "";
+        string currentLine = "";
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -53,8 +53,10 @@ namespace hexproj
                 char[] readChecksum = new char[1*2];
                 char[] readLineSplit = new char[2];
 
-
                 string tmpStr;
+                string currentAddress;
+
+                int statusOfFiled = 0;
 
                 bool endFlag = false;
 
@@ -64,65 +66,165 @@ namespace hexproj
                         break;
 
                     semicolonVal = br.ReadChar();
-                    wholeFile += semicolonVal;
+                    currentLine += semicolonVal;
 
                     readDataSize = br.ReadChars(2);
-                    wholeFile += new string(readDataSize);
+                    currentLine += new string(readDataSize);
 
                     readAddress = br.ReadChars(4);
-                    wholeFile += new string(readAddress);
+                    currentLine += new string(readAddress);
 
                     readRecordType = br.ReadChars(2);
-                    wholeFile += new string(readRecordType);
+                    currentLine += new string(readRecordType);
 
+                    //if (readRecordType[1].CompareTo('1') == 0)
                     if (readRecordType[1] == '1')
                         endFlag = true;
                     // 00 Data, 01 End Of File, 02~05 address
 
                     int lengthOfHexData = twoHexCharToIntNumber(readDataSize[0], readDataSize[1]);
                     readData = br.ReadChars(lengthOfHexData * 2);
-                    wholeFile += new string(readData);
+                    currentLine += new string(readData);
 
                     readChecksum = br.ReadChars(2);
-                    wholeFile += new string(readChecksum);
+                    currentLine += new string(readChecksum);
 
-                    if (endFlag == false)
+                    //if (endFlag == false)
+                    //{
+                    readLineSplit = br.ReadChars(2);
+                    currentLine += new string(readLineSplit);
+                    //}
+
+                    // 원하는 주소값을 찾으면, 작업 시작
+                    currentAddress = new string(readAddress);
+                    //if(currentAddress == "3540" || currentAddress == "3550" ....);
+                    if(currentAddress.CompareTo("3540") == 0||
+                       currentAddress.CompareTo("3550") == 0|| 
+                       currentAddress.CompareTo("3560") == 0|| 
+                       currentAddress.CompareTo("3570") == 0|| 
+                       currentAddress.CompareTo("3580") == 0|| 
+                       currentAddress.CompareTo("3590") == 0|| 
+                       currentAddress.CompareTo("35A0") == 0)
                     {
-                        readLineSplit = br.ReadChars(2);
-                        wholeFile += new string(readLineSplit);
+                        switch(currentAddress)
+                        {
+                            case "3540":
+                                statusOfFiled = 1;
+                                textBox110.Text = readData[11*2+0]+""+readData[11*2+1];
+                                textBox109.Text = readData[12*2+0]+""+readData[12*2+1];
+                                textBox108.Text = readData[13*2+0]+""+readData[13*2+1];
+                                textBox107.Text = readData[14*2+0]+""+readData[14*2+1];
+                                textBox3.Text = readData[15*2+0]+""+readData[15*2+1];
+                                break;
+                            case "3550":
+                                textBox4.Text = readData[0*2+0]+""+readData[0*2+1];
+                                textBox5.Text = readData[1*2+0]+""+readData[1*2+1];
+                                textBox6.Text = readData[2*2+0]+""+readData[2*2+1];
+                                textBox7.Text = readData[3*2+0]+""+readData[3*2+1];
+                                textBox8.Text = readData[4*2+0]+""+readData[4*2+1];
+                                textBox9.Text = readData[5*2+0]+""+readData[5*2+1];
+                                textBox10.Text = readData[6*2+0]+""+readData[6*2+1];
+                                textBox11.Text = readData[7*2+0]+""+readData[7*2+1];
+                                textBox12.Text = readData[8*2+0]+""+readData[8*2+1];
+                                textBox13.Text = readData[9*2+0]+""+readData[9*2+1];
+                                textBox14.Text = readData[10*2+0]+""+readData[10*2+1];
+                                textBox15.Text = readData[11*2+0]+""+readData[11*2+1];
+                                textBox16.Text = readData[12*2+0]+""+readData[12*2+1];
+                                textBox17.Text = readData[13*2+0]+""+readData[13*2+1];
+                                textBox18.Text = readData[14*2+0]+""+readData[14*2+1];
+                                textBox19.Text = readData[15*2+0]+""+readData[15*2+1];
+                                break;
+                            case "3560":
+                                textBox20.Text = readData[0*2+0]+""+readData[0*2+1];
+                                textBox21.Text = readData[1*2+0]+""+readData[1*2+1];
+                                textBox22.Text = readData[2*2+0]+""+readData[2*2+1];
+                                textBox23.Text = readData[3*2+0]+""+readData[3*2+1];
+                                textBox24.Text = readData[4*2+0]+""+readData[4*2+1];
+                                textBox25.Text = readData[5*2+0]+""+readData[5*2+1];
+                                textBox26.Text = readData[6*2+0]+""+readData[6*2+1];
+                                textBox27.Text = readData[7*2+0]+""+readData[7*2+1];
+                                textBox28.Text = readData[8*2+0]+""+readData[8*2+1];
+                                textBox29.Text = readData[9*2+0]+""+readData[9*2+1];
+                                textBox30.Text = readData[10*2+0]+""+readData[10*2+1];
+                                textBox31.Text = readData[11*2+0]+""+readData[11*2+1];
+                                textBox32.Text = readData[12*2+0]+""+readData[12*2+1];
+                                textBox33.Text = readData[13*2+0]+""+readData[13*2+1];
+                                textBox34.Text = readData[14*2+0]+""+readData[14*2+1];
+                                textBox35.Text = readData[15*2+0]+""+readData[15*2+1];
+                                break;
+                            case "3570":
+                                textBox36.Text = readData[0*2+0]+""+readData[0*2+1];
+                                textBox37.Text = readData[1*2+0]+""+readData[1*2+1];
+                                textBox38.Text = readData[2*2+0]+""+readData[2*2+1];
+                                textBox100.Text = readData[3*2+0]+""+readData[3*2+1];
+                                textBox99.Text = readData[4*2+0]+""+readData[4*2+1];
+                                textBox98.Text = readData[5*2+0]+""+readData[5*2+1];
+                                textBox97.Text = readData[6*2+0]+""+readData[6*2+1];
+                                textBox96.Text = readData[7*2+0]+""+readData[7*2+1];
+                                textBox95.Text = readData[8*2+0]+""+readData[8*2+1];
+                                textBox94.Text = readData[9*2+0]+""+readData[9*2+1];
+                                textBox93.Text = readData[10*2+0]+""+readData[10*2+1];
+                                textBox92.Text = readData[11*2+0]+""+readData[11*2+1];
+                                textBox91.Text = readData[12*2+0]+""+readData[12*2+1];
+                                textBox90.Text = readData[13*2+0]+""+readData[13*2+1];
+                                textBox89.Text = readData[14*2+0]+""+readData[14*2+1];
+                                textBox88.Text = readData[15*2+0]+""+readData[15*2+1];
+                                break;
+                            case "3580":
+                                textBox87.Text = readData[0*2+0]+""+readData[0*2+1];
+                                textBox86.Text = readData[1*2+0]+""+readData[1*2+1];
+                                textBox85.Text = readData[2*2+0]+""+readData[2*2+1];
+                                textBox84.Text = readData[3*2+0]+""+readData[3*2+1];
+                                textBox83.Text = readData[4*2+0]+""+readData[4*2+1];
+                                textBox82.Text = readData[5*2+0]+""+readData[5*2+1];
+                                textBox81.Text = readData[6*2+0]+""+readData[6*2+1];
+                                textBox80.Text = readData[7*2+0]+""+readData[7*2+1];
+                                textBox79.Text = readData[8*2+0]+""+readData[8*2+1];
+                                textBox78.Text = readData[9*2+0]+""+readData[9*2+1];
+                                textBox77.Text = readData[10*2+0]+""+readData[10*2+1];
+                                textBox76.Text = readData[11*2+0]+""+readData[11*2+1];
+                                textBox75.Text = readData[12*2+0]+""+readData[12*2+1];
+                                textBox74.Text = readData[13*2+0]+""+readData[13*2+1];
+                                textBox73.Text = readData[14*2+0]+""+readData[14*2+1];
+                                textBox72.Text = readData[15*2+0]+""+readData[15*2+1];
+                                break;
+                            case "3590":
+                                textBox71.Text = readData[0*2+0]+""+readData[0*2+1];
+                                textBox70.Text = readData[1*2+0]+""+readData[1*2+1];
+                                textBox69.Text = readData[2*2+0]+""+readData[2*2+1];
+                                textBox68.Text = readData[3*2+0]+""+readData[3*2+1];
+                                textBox67.Text = readData[4*2+0]+""+readData[4*2+1];
+                                textBox66.Text = readData[5*2+0]+""+readData[5*2+1];
+                                textBox65.Text = readData[6*2+0]+""+readData[6*2+1];
+                                textBox102.Text = readData[7*2+0]+""+readData[7*2+1];
+                                break;
+
+                            case "35A0":
+                                statusOfFiled = 2;  // Just For Passing
+                                break;
+
+                            default:
+                                break;
+                        }
                     }
 
-                    //for (int i = 0; i < lengthOfHexData; i++)
-                    //{
-                    //}
-                    //String.Format("{0:X}", Convert.ToInt32(letter));
-                    //MessageBox.Show(lengthOfHexData + "");
-
-                    //MessageBox.Show(new string(readChecksum));
-
-                    //MessageBox.Show(wholeFile);
-                    //MessageBox.Show(wholeFile.Length + "");
-                    //MessageBox.Show(new string(rea));
-                        //break;
+                    if (statusOfFiled == 0)
+                        upperFile += currentLine;
+                    else if (statusOfFiled == 1)
+                        modifyFile += currentLine;
+                    else if (statusOfFiled == 2)
+                        downFile += currentLine;
+                    currentLine = "";
                 }
+
+                wholeFile = upperFile + modifyFile + downFile;
+
                 textBox101.Text = wholeFile;
-                //MessageBox.Show(wholeFile);
+                //MessageBox.Show(upperFile);
+                //MessageBox.Show(modifyFile);
+                //MessageBox.Show(downFile);
+
                 MessageBox.Show(wholeFile.Length + "");
-
-                //string sFormat = new string(readDataSize);
-                //MessageBox.Show(sFormat);
-
-                //string sFormat = new string(readChecksum);
-                //MessageBox.Show(sFormat);
-
-                //wholeFile += semicolonVal;
-                //MessageBox.Show(wholeFile);
-                //MessageBox.Show(wholeFile.Length+"");
-
-                //byte[] test = StringToByteArray(sFormat);
-                //MessageBox.Show((int)test[0]+"");
-
-
                 br.Close();
             }
         }
@@ -188,6 +290,13 @@ namespace hexproj
             openFileDialog1.InitialDirectory = "../";
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
+                // temp part
+                textBox110.Text = inifile.IniReadValue("Temp", "a", openFileDialog1.FileName);
+                textBox109.Text = inifile.IniReadValue("Temp", "b", openFileDialog1.FileName);
+                textBox108.Text = inifile.IniReadValue("Temp", "c", openFileDialog1.FileName);
+                textBox107.Text = inifile.IniReadValue("Temp", "d", openFileDialog1.FileName);
+
+                /****************************************************************************************/
                 ////label.text = inifile.IniReadValue(섹션이름, 키이름, inifile이름);
                 //label.text = inifile.IniReadValue("Section1", "Key", "./test.ini");
                 textBox3.Text = inifile.IniReadValue("H", "T1~T2", openFileDialog1.FileName);
@@ -282,6 +391,9 @@ namespace hexproj
                 textBox66.Text = inifile.IniReadValue("Time_OFF", "T5~T6", openFileDialog1.FileName);
                 textBox65.Text = inifile.IniReadValue("Time_OFF", "T7~T8", openFileDialog1.FileName);
 
+                /****************************************************************************************/
+                textBox102.Text = inifile.IniReadValue("N_Cycle", "a", openFileDialog1.FileName);
+
             }
         }
 
@@ -292,6 +404,16 @@ namespace hexproj
             saveFileDialog1.Filter = "ini file (*.ini)|*.ini|All files (*.*)|*.*";
             if(saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
+                // temp part
+                inifile.IniWriteValue("Temp", "a", textBox110.Text, saveFileDialog1.FileName);
+                inifile.IniWriteValue("Temp", "b", textBox109.Text, saveFileDialog1.FileName);
+                inifile.IniWriteValue("Temp", "c", textBox108.Text, saveFileDialog1.FileName);
+                inifile.IniWriteValue("Temp", "d", textBox107.Text, saveFileDialog1.FileName);
+
+                /****************************************************************************************/
+                
+                // percent
+
                 //inifile.IniWriteValue(섹션이름, 키이름, 값, Inifile생성 위치);
                 //inifile.IniWriteValue("Section1", "Key", "Value", "./test.ini");
                 inifile.IniWriteValue("H", "T1~T2", textBox3.Text, saveFileDialog1.FileName);
@@ -329,17 +451,19 @@ namespace hexproj
                 inifile.IniWriteValue("R2-3", "T5~T6", textBox29.Text, saveFileDialog1.FileName);
                 inifile.IniWriteValue("R2-3", "T7~T8", textBox30.Text, saveFileDialog1.FileName);
 
-                inifile.IniWriteValue("T0", "T1~T2", textBox31.ToString(), saveFileDialog1.FileName);
-                inifile.IniWriteValue("T0", "T3~T4", textBox32.ToString(), saveFileDialog1.FileName);
-                inifile.IniWriteValue("T0", "T5~T6", textBox33.ToString(), saveFileDialog1.FileName);
-                inifile.IniWriteValue("T0", "T7~T8", textBox34.ToString(), saveFileDialog1.FileName);
+                inifile.IniWriteValue("T0", "T1~T2", textBox31.Text, saveFileDialog1.FileName);
+                inifile.IniWriteValue("T0", "T3~T4", textBox32.Text, saveFileDialog1.FileName);
+                inifile.IniWriteValue("T0", "T5~T6", textBox33.Text, saveFileDialog1.FileName);
+                inifile.IniWriteValue("T0", "T7~T8", textBox34.Text, saveFileDialog1.FileName);
 
-                inifile.IniWriteValue("OFF", "T1~T2", textBox35.ToString(), saveFileDialog1.FileName);
-                inifile.IniWriteValue("OFF", "T3~T4", textBox36.ToString(), saveFileDialog1.FileName);
-                inifile.IniWriteValue("OFF", "T5~T6", textBox37.ToString(), saveFileDialog1.FileName);
-                inifile.IniWriteValue("OFF", "T7~T8", textBox38.ToString(), saveFileDialog1.FileName);
+                inifile.IniWriteValue("OFF", "T1~T2", textBox35.Text, saveFileDialog1.FileName);
+                inifile.IniWriteValue("OFF", "T3~T4", textBox36.Text, saveFileDialog1.FileName);
+                inifile.IniWriteValue("OFF", "T5~T6", textBox37.Text, saveFileDialog1.FileName);
+                inifile.IniWriteValue("OFF", "T7~T8", textBox38.Text, saveFileDialog1.FileName);
 
                 /****************************************************************************************/
+
+                // time
 
                 inifile.IniWriteValue("Time_H", "T1~T2", textBox100.Text, saveFileDialog1.FileName);
                 inifile.IniWriteValue("Time_H", "T3~T4", textBox99.Text, saveFileDialog1.FileName);
@@ -376,15 +500,18 @@ namespace hexproj
                 inifile.IniWriteValue("Time_R2-3", "T5~T6", textBox74.Text, saveFileDialog1.FileName);
                 inifile.IniWriteValue("Time_R2-3", "T7~T8", textBox73.Text, saveFileDialog1.FileName);
 
-                inifile.IniWriteValue("Time_T0", "T1~T2", textBox72.ToString(), saveFileDialog1.FileName);
-                inifile.IniWriteValue("Time_T0", "T3~T4", textBox71.ToString(), saveFileDialog1.FileName);
-                inifile.IniWriteValue("Time_T0", "T5~T6", textBox70.ToString(), saveFileDialog1.FileName);
-                inifile.IniWriteValue("Time_T0", "T7~T8", textBox69.ToString(), saveFileDialog1.FileName);
+                inifile.IniWriteValue("Time_T0", "T1~T2", textBox72.Text, saveFileDialog1.FileName);
+                inifile.IniWriteValue("Time_T0", "T3~T4", textBox71.Text, saveFileDialog1.FileName);
+                inifile.IniWriteValue("Time_T0", "T5~T6", textBox70.Text, saveFileDialog1.FileName);
+                inifile.IniWriteValue("Time_T0", "T7~T8", textBox69.Text, saveFileDialog1.FileName);
 
-                inifile.IniWriteValue("Time_OFF", "T1~T2", textBox68.ToString(), saveFileDialog1.FileName);
-                inifile.IniWriteValue("Time_OFF", "T3~T4", textBox67.ToString(), saveFileDialog1.FileName);
-                inifile.IniWriteValue("Time_OFF", "T5~T6", textBox66.ToString(), saveFileDialog1.FileName);
-                inifile.IniWriteValue("Time_OFF", "T7~T8", textBox65.ToString(), saveFileDialog1.FileName);
+                inifile.IniWriteValue("Time_OFF", "T1~T2", textBox68.Text, saveFileDialog1.FileName);
+                inifile.IniWriteValue("Time_OFF", "T3~T4", textBox67.Text, saveFileDialog1.FileName);
+                inifile.IniWriteValue("Time_OFF", "T5~T6", textBox66.Text, saveFileDialog1.FileName);
+                inifile.IniWriteValue("Time_OFF", "T7~T8", textBox65.Text, saveFileDialog1.FileName);
+
+                /****************************************************************************************/
+                inifile.IniWriteValue("N_Cycle", "a", textBox102.Text, saveFileDialog1.FileName);
             }
         }
         public static string ByteArrayToString(byte[] ba)
@@ -406,6 +533,17 @@ namespace hexproj
             for (int i = 0; i < NumberChars; i += 2)
                 bytes[i / 2] = Convert.ToByte(hex.Substring(i, 2), 16);
             return bytes;
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+            saveFileDialog1.InitialDirectory = Directory.GetCurrentDirectory();
+            saveFileDialog1.Filter = "hex file (*.hex)|*.hex|All files (*.*)|*.*";
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+            }
+
         }
     }
 
