@@ -139,6 +139,7 @@
             this.textBox100 = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.textBox101 = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // textBox1
@@ -1035,11 +1036,21 @@
             this.label4.TabIndex = 121;
             this.label4.Text = "Heat_Time_Table";
             // 
+            // textBox101
+            // 
+            this.textBox101.Location = new System.Drawing.Point(876, 26);
+            this.textBox101.Multiline = true;
+            this.textBox101.Name = "textBox101";
+            this.textBox101.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.textBox101.Size = new System.Drawing.Size(489, 438);
+            this.textBox101.TabIndex = 122;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(884, 490);
+            this.ClientSize = new System.Drawing.Size(1377, 490);
+            this.Controls.Add(this.textBox101);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.textBox52);
@@ -1269,6 +1280,7 @@
         private System.Windows.Forms.TextBox textBox100;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox textBox101;
     }
 }
 

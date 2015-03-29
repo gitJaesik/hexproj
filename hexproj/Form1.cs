@@ -24,6 +24,12 @@ namespace hexproj
 
         static private byte[] findLoc = { 0x10, 0x35, 0x40, 0x00 };
 
+        string wholeFile = "";
+        string upperFile = "";
+        string downFile = "";
+        string modifyFile = "";
+        string oneLine = "";
+
         private void button1_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
@@ -37,20 +43,144 @@ namespace hexproj
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 BinaryReader br = new BinaryReader(new FileStream(openFileDialog1.FileName, FileMode.Open));
-                //MessageBox.Show("File size : {0} bytes", br.BaseStream.Length.ToString());
-                for (int i = 0; i <= br.BaseStream.Length; i++)
-                {
-                    //if (br.BaseStream.ReadByte() == (byte)0x01)
-                    //{
-                    //    Console.WriteLine("Found the byte 01 at offset " + i);
-                    //    break;
-                    //}
 
+                char semicolonVal;
+                //byte[] dataCount;
+                char[] readDataSize = new char[1*2];
+                char[] readAddress = new char[2*2];
+                char[] readRecordType = new char[1*2]; // EOF == 0x01
+                char[] readData = new char[16*2];      // MAX == 0x10
+                char[] readChecksum = new char[1*2];
+                char[] readLineSplit = new char[2];
+
+
+                string tmpStr;
+
+                bool endFlag = false;
+
+                while (true)
+                {
+                    if (endFlag == true)
+                        break;
+
+                    semicolonVal = br.ReadChar();
+                    wholeFile += semicolonVal;
+
+                    readDataSize = br.ReadChars(2);
+                    wholeFile += new string(readDataSize);
+
+                    readAddress = br.ReadChars(4);
+                    wholeFile += new string(readAddress);
+
+                    readRecordType = br.ReadChars(2);
+                    wholeFile += new string(readRecordType);
+
+                    if (readRecordType[1] == '1')
+                        endFlag = true;
+                    // 00 Data, 01 End Of File, 02~05 address
+
+                    int lengthOfHexData = twoHexCharToIntNumber(readDataSize[0], readDataSize[1]);
+                    readData = br.ReadChars(lengthOfHexData * 2);
+                    wholeFile += new string(readData);
+
+                    readChecksum = br.ReadChars(2);
+                    wholeFile += new string(readChecksum);
+
+                    if (endFlag == false)
+                    {
+                        readLineSplit = br.ReadChars(2);
+                        wholeFile += new string(readLineSplit);
+                    }
+
+                    //for (int i = 0; i < lengthOfHexData; i++)
+                    //{
+                    //}
+                    //String.Format("{0:X}", Convert.ToInt32(letter));
+                    //MessageBox.Show(lengthOfHexData + "");
+
+                    //MessageBox.Show(new string(readChecksum));
+
+                    //MessageBox.Show(wholeFile);
+                    //MessageBox.Show(wholeFile.Length + "");
+                    //MessageBox.Show(new string(rea));
+                        //break;
                 }
+                textBox101.Text = wholeFile;
+                //MessageBox.Show(wholeFile);
+                MessageBox.Show(wholeFile.Length + "");
+
+                //string sFormat = new string(readDataSize);
+                //MessageBox.Show(sFormat);
+
+                //string sFormat = new string(readChecksum);
+                //MessageBox.Show(sFormat);
+
+                //wholeFile += semicolonVal;
+                //MessageBox.Show(wholeFile);
+                //MessageBox.Show(wholeFile.Length+"");
+
+                //byte[] test = StringToByteArray(sFormat);
+                //MessageBox.Show((int)test[0]+"");
+
+
                 br.Close();
             }
-
         }
+
+        private int twoHexCharToIntNumber(char x, char y)
+        {
+            int retX = 0;
+            int retY = 0;
+
+            int total = 0;
+
+            retX = (int)Char.GetNumericValue(x);
+            if (retX == -1) // a~f
+                retX = hexAlphaToInt(x);
+
+            retY = (int)Char.GetNumericValue(y);
+            if (retY == -1) // a~f
+                retY = hexAlphaToInt(y);
+
+            total = retX * 16 + retY * 1;
+
+            return total;
+        }
+
+        private int hexAlphaToInt(char alphaChar)
+        {
+            int ret = 0;
+
+            switch(alphaChar)
+            {
+                case 'a': case 'A':
+                    ret = 10;
+                    break;
+                case 'b': case 'B':
+                    ret = 11;
+                    break;
+                case 'c': case 'C':
+                    ret = 12;
+                    break;
+                case 'd': case 'D':
+                    ret = 13;
+                    break;
+                case 'e': case 'E':
+                    ret = 14;
+                    break;
+                case 'f': case 'F':
+                    ret = 15;
+                    break;
+                default:
+                    MessageBox.Show("system error: hex val over f");
+                    break;
+            }
+
+            return ret;
+        }
+
+
+
 
         private void button2_Click(object sender, EventArgs e)
         {
