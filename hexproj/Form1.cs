@@ -30,6 +30,15 @@ namespace hexproj
         string modifyFile = "";
         string currentLine = "";
 
+        // TODO
+        // 1. ini 저장 + 저장 & merge에서 Regular eXpression 사용하기
+        // 2. HashTable을 사용해서 구분별로 저장하도록하기 -> 일반화 프로그래밍 Dictionary<string>
+        // 3. 새로 파일을 오픈하였을 때, 모든 것을 리셋하는 부분이 필요하다.
+        Dictionary<string,string> hexHeader = new Dictionary<string,string>();
+        // 3540 ~ 3590
+        string otherData1 = "";
+        string otherData2 = "";
+
         private void button1_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
@@ -89,11 +98,11 @@ namespace hexproj
                     readChecksum = br.ReadChars(2);
                     currentLine += new string(readChecksum);
 
-                    //if (endFlag == false)
-                    //{
-                    readLineSplit = br.ReadChars(2);
-                    currentLine += new string(readLineSplit);
-                    //}
+                    if (endFlag == false)
+                    {
+                        readLineSplit = br.ReadChars(2);
+                        currentLine += new string(readLineSplit);
+                    }
 
                     // 원하는 주소값을 찾으면, 작업 시작
                     currentAddress = new string(readAddress);
@@ -110,30 +119,43 @@ namespace hexproj
                         {
                             case "3540":
                                 statusOfFiled = 1;
-                                textBox110.Text = readData[11*2+0]+""+readData[11*2+1];
+
+                                // 3540의 0~ 10까지의 Hex Data를 저장 (Hex 단위 = byte 단위 로)
+                                for (int i = 0; i < 11; i++)
+                                {
+                                    otherData1 += readData[i * 2 + 0] + "" + readData[i * 2 + 1];
+                                }
+
+                                textBox110.Text = readData[11 * 2 + 0] + "" + readData[11 * 2 + 1];
                                 textBox109.Text = readData[12*2+0]+""+readData[12*2+1];
                                 textBox108.Text = readData[13*2+0]+""+readData[13*2+1];
                                 textBox107.Text = readData[14*2+0]+""+readData[14*2+1];
                                 textBox3.Text = readData[15*2+0]+""+readData[15*2+1];
                                 break;
                             case "3550":
-                                textBox4.Text = readData[0*2+0]+""+readData[0*2+1];
-                                textBox5.Text = readData[1*2+0]+""+readData[1*2+1];
-                                textBox6.Text = readData[2*2+0]+""+readData[2*2+1];
-                                textBox7.Text = readData[3*2+0]+""+readData[3*2+1];
-                                textBox8.Text = readData[4*2+0]+""+readData[4*2+1];
-                                textBox9.Text = readData[5*2+0]+""+readData[5*2+1];
-                                textBox10.Text = readData[6*2+0]+""+readData[6*2+1];
-                                textBox11.Text = readData[7*2+0]+""+readData[7*2+1];
-                                textBox12.Text = readData[8*2+0]+""+readData[8*2+1];
-                                textBox13.Text = readData[9*2+0]+""+readData[9*2+1];
-                                textBox14.Text = readData[10*2+0]+""+readData[10*2+1];
-                                textBox15.Text = readData[11*2+0]+""+readData[11*2+1];
-                                textBox16.Text = readData[12*2+0]+""+readData[12*2+1];
-                                textBox17.Text = readData[13*2+0]+""+readData[13*2+1];
-                                textBox18.Text = readData[14*2+0]+""+readData[14*2+1];
-                                textBox19.Text = readData[15*2+0]+""+readData[15*2+1];
-                                break;
+                                //textBox4.Text = readData[0*2+0]+""+readData[0*2+1];
+                                //textBox5.Text = readData[1*2+0]+""+readData[1*2+1];
+                                //textBox6.Text = readData[2*2+0]+""+readData[2*2+1];
+                                //textBox7.Text = readData[3*2+0]+""+readData[3*2+1];
+                                //textBox8.Text = readData[4*2+0]+""+readData[4*2+1];
+                                //textBox9.Text = readData[5*2+0]+""+readData[5*2+1];
+                                //textBox10.Text = readData[6*2+0]+""+readData[6*2+1];
+                                //textBox11.Text = readData[7*2+0]+""+readData[7*2+1];
+                                //textBox12.Text = readData[8*2+0]+""+readData[8*2+1];
+                                //textBox13.Text = readData[9*2+0]+""+readData[9*2+1];
+                                //textBox14.Text = readData[10*2+0]+""+readData[10*2+1];
+                                //textBox15.Text = readData[11*2+0]+""+readData[11*2+1];
+                                //textBox16.Text = readData[12*2+0]+""+readData[12*2+1];
+                                //textBox17.Text = readData[13*2+0]+""+readData[13*2+1];
+                                //textBox18.Text = readData[14*2+0]+""+readData[14*2+1];
+                                //textBox19.Text = readData[15*2+0]+""+readData[15*2+1];
+                                int n = 0;
+                                for (int i = 0; i < 16; i++)
+                                {
+                                    n = i + 4;
+                                    this.Controls["textBox" + n].Text = readData[i * 2 + 0] + "" + readData[i * 2 + 1];
+                                }
+                                    break;
                             case "3560":
                                 textBox20.Text = readData[0*2+0]+""+readData[0*2+1];
                                 textBox21.Text = readData[1*2+0]+""+readData[1*2+1];
@@ -197,6 +219,12 @@ namespace hexproj
                                 textBox66.Text = readData[5*2+0]+""+readData[5*2+1];
                                 textBox65.Text = readData[6*2+0]+""+readData[6*2+1];
                                 textBox102.Text = readData[7*2+0]+""+readData[7*2+1];
+
+                                // 3590의 사용하지 않은 데이터 모두
+                                for (int i = 8; i < 16; i++ )
+                                {
+                                    otherData2 += readData[i * 2 + 0] + "" + readData[i * 2 + 1];
+                                }
                                 break;
 
                             case "35A0":
@@ -542,8 +570,70 @@ namespace hexproj
             saveFileDialog1.Filter = "hex file (*.hex)|*.hex|All files (*.*)|*.*";
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
+                string changedFile = "";
+                string oneLineData = ""; // to checksum
+                string retCheckSum = "";
+                // 데이터 짜집기해서 저장하기
+                for(int i = 0; i < 6; i++)
+                {
+                    changedFile += ":" + "10" + "35" + (i + 4) + "0" + "00";
+                    oneLineData += "10" + "35" + (i + 4) + "0" + "00";
+                    if (i == 0)
+                    {
+                        oneLineData += otherData1;
+                        //this.Controls["textBox" + n].Text = readData[i * 2 + 0] + "" + readData[i * 2 + 1];
+                        for(int j = 0; j < 4; j++)
+                        {
+                            int n = 0;
+                            n = 110;
+                            oneLineData += this.Controls["textBox" + n].Text;
+                            n--;
+                        }
+                        oneLineData += this.Controls["textBox" + "3"].Text;
+                        retCheckSum = getCheckSumFromOneLineData(oneLineData);
+                    }
+
+                    break; // 한 번만 테스트
+                }
+                //MessageBox.Show(retCheckSum);
+                //MessageBox.Show(oneLineData);
+
+                // Hex 파일 형태 데이터 저장하기
+                //StreamWriter sw = new StreamWriter(new FileStream(saveFileDialog1.FileName, FileMode.Create));
+                //sw.WriteLine(wholeFile);
+                //sw.Close();
             }
 
+        }
+
+        private string getCheckSumFromOneLineData(string str)
+        {
+            //MessageBox.Show(Convert.ToInt32("3A", 16)+"");  // 16진수로 바꾸는 것
+            char[] hexDataArr;
+            int tempVal = 0;
+            int sum = 0;
+
+            for(int i = 0; i < 20; i++)
+            {
+                //hexDataArr = str.ToCharArray()
+                //hexDataArr = str.ToCharArray(i * 0, 2);
+                //tempVal = (byte)Convert.ToInt32(new string(str.ToCharArray(i * 1, 2)), 16);
+                hexDataArr = str.ToCharArray(i * 2, 2); 
+                tempVal = Convert.ToInt32(new string(hexDataArr), 16);
+                //sum += tempVal;
+                sum = sum + tempVal;
+                //MessageBox.Show(tempVal + "");
+            }
+
+            MessageBox.Show(sum+"");
+            sum %= 256;
+            MessageBox.Show(sum+"");
+            sum = 256 - sum;
+            MessageBox.Show(sum+"");
+            MessageBox.Show(sum.ToString("X"));
+
+
+            return "";
         }
     }
 

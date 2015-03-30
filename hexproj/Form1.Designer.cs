@@ -187,19 +187,19 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(573, 432);
+            this.button3.Location = new System.Drawing.Point(568, 432);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(67, 21);
+            this.button3.Size = new System.Drawing.Size(151, 21);
             this.button3.TabIndex = 4;
-            this.button3.Text = "저장경로";
+            this.button3.Text = "Merge and 저장";
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(337, 459);
+            this.button4.Location = new System.Drawing.Point(12, 457);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(120, 21);
+            this.button4.Size = new System.Drawing.Size(10, 21);
             this.button4.TabIndex = 5;
             this.button4.Text = "Merge and 저장";
             this.button4.UseVisualStyleBackColor = true;
@@ -613,9 +613,9 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(147, 436);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(53, 12);
+            this.label2.Size = new System.Drawing.Size(29, 12);
             this.label2.TabIndex = 69;
-            this.label2.Text = "저장경로";
+            this.label2.Text = "저장";
             // 
             // button5
             // 
