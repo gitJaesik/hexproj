@@ -51,6 +51,7 @@ namespace hexproj
 
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
+                textBox1.Text = openFileDialog1.FileName;
                 BinaryReader br = new BinaryReader(new FileStream(openFileDialog1.FileName, FileMode.Open));
 
                 char semicolonVal;
@@ -570,13 +571,14 @@ namespace hexproj
             saveFileDialog1.Filter = "hex file (*.hex)|*.hex|All files (*.*)|*.*";
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
+                textBox2.Text = saveFileDialog1.FileName;
                 string changedFile = "";
                 string oneLineData = ""; // to checksum
                 string retCheckSum = "";
                 // 데이터 짜집기해서 저장하기
                 for(int i = 0; i < 6; i++)
                 {
-                    changedFile += ":" + "10" + "35" + (i + 4) + "0" + "00";
+                    //changedFile += ":" + "10" + "35" + (i + 4) + "0" + "00";
                     oneLineData += "10" + "35" + (i + 4) + "0" + "00";
                     if (i == 0)
                     {
@@ -591,17 +593,96 @@ namespace hexproj
                         }
                         oneLineData += this.Controls["textBox" + "3"].Text;
                         retCheckSum = getCheckSumFromOneLineData(oneLineData);
+                        oneLineData += retCheckSum;
+                    }
+                    else if(i == 1)
+                    {
+                        for(int j = 0; j < 16; j++)
+                        {
+                            int n = 0;
+                            n = j + 4;
+                            oneLineData += this.Controls["textBox" + n].Text;
+                        }
+                        retCheckSum = getCheckSumFromOneLineData(oneLineData);
+                        oneLineData += retCheckSum;
+                    }
+                    else if(i == 2)
+                    {
+                        for(int j = 0; j < 16; j++)
+                        {
+                            int n = 0;
+                            n = j + 20;
+                            oneLineData += this.Controls["textBox" + n].Text;
+                        }
+                        retCheckSum = getCheckSumFromOneLineData(oneLineData);
+                        oneLineData += retCheckSum;
+                    }
+                    else if(i == 3)
+                    {
+                        for(int j = 0; j < 3; j++)
+                        {
+                            int n = 0;
+                            n = j + 36;
+                            oneLineData += this.Controls["textBox" + n].Text;
+                        }
+                        for(int h = 0; h < 13; h++)
+                        {
+                            int n = 0;
+                            n = 100;
+                            oneLineData += this.Controls["textBox" + n].Text;
+                            n--;
+                        }
+                        retCheckSum = getCheckSumFromOneLineData(oneLineData);
+                        oneLineData += retCheckSum;
+                    }
+                    else if(i == 4)
+                    {
+                        for(int j = 0; j < 16; j++)
+                        {
+                            int n = 0;
+                            n = 87;
+                            oneLineData += this.Controls["textBox" + n].Text;
+                            n--;
+                        }
+                        retCheckSum = getCheckSumFromOneLineData(oneLineData);
+                        oneLineData += retCheckSum;
+                    }
+                    else if(i == 5)
+                    {
+                        //textBox71.Text = readData[0*2+0]+""+readData[0*2+1];
+                        //textBox70.Text = readData[1*2+0]+""+readData[1*2+1];
+                        //textBox69.Text = readData[2*2+0]+""+readData[2*2+1];
+                        //textBox68.Text = readData[3*2+0]+""+readData[3*2+1];
+                        //textBox67.Text = readData[4*2+0]+""+readData[4*2+1];
+                        //textBox66.Text = readData[5*2+0]+""+readData[5*2+1];
+                        //textBox65.Text = readData[6*2+0]+""+readData[6*2+1];
+                        //textBox102.Text = readData[7*2+0]+""+readData[7*2+1];
+                        for (int j = 0; j < 7; j++)
+                        {
+                            int n = 0;
+                            n = 71;
+                            oneLineData += this.Controls["textBox" + n].Text;
+                            n--;
+                        }
+                        oneLineData += this.Controls["textBox" + "102"].Text;
+                        oneLineData += otherData2;
+                        retCheckSum = getCheckSumFromOneLineData(oneLineData);
+                        oneLineData += retCheckSum;
                     }
 
-                    break; // 한 번만 테스트
+                    //break; // 한 번만 테스트
+                    changedFile += ":" + oneLineData+"\r\n";
+                    oneLineData = "";
                 }
                 //MessageBox.Show(retCheckSum);
                 //MessageBox.Show(oneLineData);
 
                 // Hex 파일 형태 데이터 저장하기
-                //StreamWriter sw = new StreamWriter(new FileStream(saveFileDialog1.FileName, FileMode.Create));
-                //sw.WriteLine(wholeFile);
-                //sw.Close();
+                wholeFile = upperFile + changedFile + downFile;
+                StreamWriter sw = new StreamWriter(new FileStream(saveFileDialog1.FileName, FileMode.Create));
+                sw.WriteLine(wholeFile);
+                sw.Close();
+                MessageBox.Show("저장되었습니다.");
             }
 
         }
@@ -622,18 +703,17 @@ namespace hexproj
                 tempVal = Convert.ToInt32(new string(hexDataArr), 16);
                 //sum += tempVal;
                 sum = sum + tempVal;
-                //MessageBox.Show(tempVal + "");
             }
 
-            MessageBox.Show(sum+"");
+            //MessageBox.Show(sum+"");
             sum %= 256;
-            MessageBox.Show(sum+"");
+            //MessageBox.Show(sum+"");
             sum = 256 - sum;
-            MessageBox.Show(sum+"");
-            MessageBox.Show(sum.ToString("X"));
+            //MessageBox.Show(sum+"");
+            //MessageBox.Show(sum.ToString("X"));
 
 
-            return "";
+            return sum.ToString("X");
         }
     }
 
