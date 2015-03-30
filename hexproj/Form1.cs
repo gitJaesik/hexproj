@@ -63,7 +63,6 @@ namespace hexproj
                 char[] readChecksum = new char[1*2];
                 char[] readLineSplit = new char[2];
 
-                string tmpStr;
                 string currentAddress;
 
                 int statusOfFiled = 0;
@@ -116,6 +115,7 @@ namespace hexproj
                        currentAddress.CompareTo("3590") == 0|| 
                        currentAddress.CompareTo("35A0") == 0)
                     {
+                        string tmpStrToDecimal = "";
                         switch(currentAddress)
                         {
                             case "3540":
@@ -131,54 +131,45 @@ namespace hexproj
                                 textBox109.Text = readData[12*2+0]+""+readData[12*2+1];
                                 textBox108.Text = readData[13*2+0]+""+readData[13*2+1];
                                 textBox107.Text = readData[14*2+0]+""+readData[14*2+1];
-                                textBox3.Text = readData[15*2+0]+""+readData[15*2+1];
+                                //textBox3.Text = readData[15*2+0]+""+readData[15*2+1];
+                                //tempVal = Convert.ToInt32(new string(hexDataArr), 16);
+                                tmpStrToDecimal = readData[15*2+0]+""+readData[15*2+1];
+                                textBox3.Text = Convert.ToInt32(tmpStrToDecimal, 16).ToString();
+
                                 break;
                             case "3550":
-                                //textBox4.Text = readData[0*2+0]+""+readData[0*2+1];
-                                //textBox5.Text = readData[1*2+0]+""+readData[1*2+1];
-                                //textBox6.Text = readData[2*2+0]+""+readData[2*2+1];
-                                //textBox7.Text = readData[3*2+0]+""+readData[3*2+1];
-                                //textBox8.Text = readData[4*2+0]+""+readData[4*2+1];
-                                //textBox9.Text = readData[5*2+0]+""+readData[5*2+1];
-                                //textBox10.Text = readData[6*2+0]+""+readData[6*2+1];
-                                //textBox11.Text = readData[7*2+0]+""+readData[7*2+1];
-                                //textBox12.Text = readData[8*2+0]+""+readData[8*2+1];
-                                //textBox13.Text = readData[9*2+0]+""+readData[9*2+1];
-                                //textBox14.Text = readData[10*2+0]+""+readData[10*2+1];
-                                //textBox15.Text = readData[11*2+0]+""+readData[11*2+1];
-                                //textBox16.Text = readData[12*2+0]+""+readData[12*2+1];
-                                //textBox17.Text = readData[13*2+0]+""+readData[13*2+1];
-                                //textBox18.Text = readData[14*2+0]+""+readData[14*2+1];
-                                //textBox19.Text = readData[15*2+0]+""+readData[15*2+1];
-                                int n = 0;
+                                int countN = 0;
                                 for (int i = 0; i < 16; i++)
                                 {
-                                    n = i + 4;
-                                    this.Controls["textBox" + n].Text = readData[i * 2 + 0] + "" + readData[i * 2 + 1];
+                                    countN = i + 4;
+                                    //this.Controls["textBox" + n].Text = readData[i * 2 + 0] + "" + readData[i * 2 + 1];
+                                    tmpStrToDecimal = readData[i * 2 + 0] + "" + readData[i * 2 + 1]; 
+                                    this.Controls["textBox" + countN].Text = Convert.ToInt32(tmpStrToDecimal, 16).ToString();
                                 }
                                     break;
                             case "3560":
-                                textBox20.Text = readData[0*2+0]+""+readData[0*2+1];
-                                textBox21.Text = readData[1*2+0]+""+readData[1*2+1];
-                                textBox22.Text = readData[2*2+0]+""+readData[2*2+1];
-                                textBox23.Text = readData[3*2+0]+""+readData[3*2+1];
-                                textBox24.Text = readData[4*2+0]+""+readData[4*2+1];
-                                textBox25.Text = readData[5*2+0]+""+readData[5*2+1];
-                                textBox26.Text = readData[6*2+0]+""+readData[6*2+1];
-                                textBox27.Text = readData[7*2+0]+""+readData[7*2+1];
-                                textBox28.Text = readData[8*2+0]+""+readData[8*2+1];
-                                textBox29.Text = readData[9*2+0]+""+readData[9*2+1];
-                                textBox30.Text = readData[10*2+0]+""+readData[10*2+1];
-                                textBox31.Text = readData[11*2+0]+""+readData[11*2+1];
-                                textBox32.Text = readData[12*2+0]+""+readData[12*2+1];
-                                textBox33.Text = readData[13*2+0]+""+readData[13*2+1];
-                                textBox34.Text = readData[14*2+0]+""+readData[14*2+1];
-                                textBox35.Text = readData[15*2+0]+""+readData[15*2+1];
+                                int countK = 0;
+                                for (int i = 0; i < 16; i++)
+                                {
+                                    countK = i + 20;
+                                    //this.Controls["textBox" + n].Text = readData[i * 2 + 0] + "" + readData[i * 2 + 1];
+                                    tmpStrToDecimal = readData[i * 2 + 0] + "" + readData[i * 2 + 1]; 
+                                    this.Controls["textBox" + countK].Text = Convert.ToInt32(tmpStrToDecimal, 16).ToString();
+                                }
                                 break;
                             case "3570":
-                                textBox36.Text = readData[0*2+0]+""+readData[0*2+1];
-                                textBox37.Text = readData[1*2+0]+""+readData[1*2+1];
-                                textBox38.Text = readData[2*2+0]+""+readData[2*2+1];
+                                //textBox36.Text = readData[0*2+0]+""+readData[0*2+1];
+                                //textBox37.Text = readData[1*2+0]+""+readData[1*2+1];
+                                //textBox38.Text = readData[2*2+0]+""+readData[2*2+1];
+                                int countH = 0;
+                                for (int i = 0; i < 3; i++)
+                                {
+                                    countH = i + 36;
+                                    //this.Controls["textBox" + n].Text = readData[i * 2 + 0] + "" + readData[i * 2 + 1];
+                                    tmpStrToDecimal = readData[i * 2 + 0] + "" + readData[i * 2 + 1]; 
+                                    this.Controls["textBox" + countH].Text = Convert.ToInt32(tmpStrToDecimal, 16).ToString();
+                                }
+
                                 textBox100.Text = readData[3*2+0]+""+readData[3*2+1];
                                 textBox99.Text = readData[4*2+0]+""+readData[4*2+1];
                                 textBox98.Text = readData[5*2+0]+""+readData[5*2+1];
@@ -575,6 +566,8 @@ namespace hexproj
                 string changedFile = "";
                 string oneLineData = ""; // to checksum
                 string retCheckSum = "";
+
+                int decimalToHexTemp = 0;
                 // 데이터 짜집기해서 저장하기
                 for(int i = 0; i < 6; i++)
                 {
@@ -591,7 +584,9 @@ namespace hexproj
                             oneLineData += this.Controls["textBox" + n].Text;
                             n--;
                         }
-                        oneLineData += this.Controls["textBox" + "3"].Text;
+                        //oneLineData += this.Controls["textBox" + "3"].Text;
+                        decimalToHexTemp = Convert.ToInt32(this.Controls["textBox" + "3"].Text);
+                        oneLineData += decimalToHexTemp.ToString("X");
                         retCheckSum = getCheckSumFromOneLineData(oneLineData);
                         oneLineData += retCheckSum;
                     }
@@ -601,7 +596,9 @@ namespace hexproj
                         {
                             int n = 0;
                             n = j + 4;
-                            oneLineData += this.Controls["textBox" + n].Text;
+                            //oneLineData += this.Controls["textBox" + n].Text;
+                            decimalToHexTemp = Convert.ToInt32(this.Controls["textBox" + n].Text);
+                            oneLineData += decimalToHexTemp.ToString("X");
                         }
                         retCheckSum = getCheckSumFromOneLineData(oneLineData);
                         oneLineData += retCheckSum;
@@ -612,7 +609,9 @@ namespace hexproj
                         {
                             int n = 0;
                             n = j + 20;
-                            oneLineData += this.Controls["textBox" + n].Text;
+                            //oneLineData += this.Controls["textBox" + n].Text;
+                            decimalToHexTemp = Convert.ToInt32(this.Controls["textBox" + n].Text);
+                            oneLineData += decimalToHexTemp.ToString("X");
                         }
                         retCheckSum = getCheckSumFromOneLineData(oneLineData);
                         oneLineData += retCheckSum;
@@ -623,7 +622,9 @@ namespace hexproj
                         {
                             int n = 0;
                             n = j + 36;
-                            oneLineData += this.Controls["textBox" + n].Text;
+                            //oneLineData += this.Controls["textBox" + n].Text;
+                            decimalToHexTemp = Convert.ToInt32(this.Controls["textBox" + n].Text);
+                            oneLineData += decimalToHexTemp.ToString("X");
                         }
                         for(int h = 0; h < 13; h++)
                         {
