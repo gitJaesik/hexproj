@@ -308,6 +308,7 @@ namespace hexproj
         private void button2_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
+            openFileDialog1.Filter = "ini file (*.ini)|*.ini|All files (*.*)|*.*";
             openFileDialog1.InitialDirectory = "../";
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
@@ -600,7 +601,6 @@ namespace hexproj
             }
             if(wrongInputNumber > 0)
                 MessageBox.Show("Heat_Percent_Table에 잘못 된 값이 "+wrongInputNumber +"개 들어 있습니다.");
-
             /////////////////////////////////////////////////// 유효화 검사 끝
 
 
@@ -712,14 +712,6 @@ namespace hexproj
                     }
                     else if(i == 5)
                     {
-                        //textBox71.Text = readData[0*2+0]+""+readData[0*2+1];
-                        //textBox70.Text = readData[1*2+0]+""+readData[1*2+1];
-                        //textBox69.Text = readData[2*2+0]+""+readData[2*2+1];
-                        //textBox68.Text = readData[3*2+0]+""+readData[3*2+1];
-                        //textBox67.Text = readData[4*2+0]+""+readData[4*2+1];
-                        //textBox66.Text = readData[5*2+0]+""+readData[5*2+1];
-                        //textBox65.Text = readData[6*2+0]+""+readData[6*2+1];
-                        //textBox102.Text = readData[7*2+0]+""+readData[7*2+1];
                         n = 71;
                         for (int j = 0; j < 7; j++)
                         {
@@ -756,10 +748,16 @@ namespace hexproj
 
         private string getCheckSumFromOneLineData(string str)
         {
+            // error check
+            if (str.Length != 40)
+                MessageBox.Show("에러 발생");
+
+
             //MessageBox.Show(Convert.ToInt32("3A", 16)+"");  // 16진수로 바꾸는 것
             char[] hexDataArr;
             int tempVal = 0;
             int sum = 0;
+            string retHexStr = "";
 
             for(int i = 0; i < 20; i++)
             {
@@ -779,8 +777,11 @@ namespace hexproj
             //MessageBox.Show(sum+"");
             //MessageBox.Show(sum.ToString("X"));
 
+            if (sum < 16)
+                retHexStr += "0";
+            retHexStr += sum.ToString("X");
+            return retHexStr;
 
-            return sum.ToString("X");
         }
     }
 
